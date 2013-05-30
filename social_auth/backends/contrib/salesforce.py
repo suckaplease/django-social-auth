@@ -5,7 +5,7 @@ settings.py should include the following:
     SALESFORCE_CLIENT_SECRET = '...'
 
 Optional scope to include:
-    api - Allows access to the current, logged-in user’s account over the APIs, such as the REST API or Bulk API.
+    api - Allows access to the current, logged-in user's account over the APIs, such as the REST API or Bulk API.
     chatter_api - Allows access to only the Chatter API URLs.
     full - Allows access to all data accessible by the current, logged-in user.
     id - Allows access only to the Identity Service.
