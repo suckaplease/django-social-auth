@@ -4,22 +4,23 @@ settings.py should include the following:
     SALESFORCE_CLIENT_ID = '...'
     SALESFORCE_CLIENT_SECRET = '...'
 
-Optional scope to include:
-    api - Allows access to the current, logged-in user’s account over the APIs, such as the REST API or Bulk API.
-    chatter_api - Allows access to only the Chatter API URLs.
-    full - Allows access to all data accessible by the current, logged-in user.
-    id - Allows access only to the Identity Service.
-    refresh_token - Allows a refresh token to be returned if you are eligible to receive one.
-    visualforce - Allows access to Visualforce pages.
-    web - Allows the ability to use the access_token on the Web.
+    Optional scope to include:
+	api: Allows access to the current, logged-in user's account over the APIs, such as the REST API or Bulk API.
+	chatter_api: Allows access to only the Chatter API URLs.
+	full: Allows access to all data accessible by the current, logged-in user.
+	id: Allows access only to the Identity Service
+	refresh_token: Allows a refresh token to be returned if you are eligible to receive one.
+	visualforce: Allows access to Visualforce pages
+	web: Allows the ability to use the access_token on the web.
 
-    If you do not supply a scope parameter, it will default to: id api refresh_token.
+	If you do not supply a scope parameter, it will default to: id api refresh_token
 
-    SALESFORCE_AUTH_EXTRA_ARGUMENTS = {'scope': 'id api refresh_token'}
+    SALESFORCE_AUTH_EXTRA_ARGUEMENTS = {'scope': 'id api refresh_token'}
+    SALESFORCE_DISPLAY_PARAM = ''
 
-    SALESFORCE_DISPLAY_PARAM
 
-More information on scope can be found at https://angel.co/api/oauth/faq
+    More information on scope can be found at:
+    http://wiki.developerforce.com/page/Digging_Deeper_into_OAuth_2.0_on_Force.com
 """
 from urllib import urlencode
 
@@ -35,7 +36,7 @@ SALESFORCE_DOMAIN = 'login.salesforce.com'
 SALESFORCE_TEST_DOMAIN = 'test.salesforce.com'
 
 SALESFORCE_TESTING = setting('SALESFORCE_TESTING',False)
-SALESFORCE_SERVER = "https://" + SALESFORCE_TEST_DOMAIN if SALESFORCE_TESTING else SALESFORCE_DOMAIN
+SALESFORCE_SERVER = "https://" + (SALESFORCE_TEST_DOMAIN if SALESFORCE_TESTING else SALESFORCE_DOMAIN)
 
 SALESFORCE_AUTHORIZATION_PATH = '/services/oauth2/authorize'
 SALESFORCE_ACCESS_TOKEN_PATH = '/services/oauth2/token'
@@ -89,12 +90,11 @@ class SalesforceAuth(BaseOAuth2):
     def user_data(self, access_token, *args, **kwargs):
         """Loads user data from service"""
         response = kwargs.get('response') or {}
-
-
-        params = {'access_token': access_token}
-        url = response.get('id') + '?' + urlencode(params)
+	import urllib2
+	headers = {'Authorization': 'Bearer ' + access_token}
+	req = urllib2.Request(response.get('id'), headers=headers)
         try:
-            return simplejson.load(dsa_urlopen(url))
+            return simplejson.load(urllib2.urlopen(req))
         except ValueError:
             return None
 
