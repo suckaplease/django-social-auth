@@ -1,7 +1,6 @@
 """
-settings.py should include the following:
-
-    SALESFORCE_CLIENT_ID = '...'
+settings.py should include the following:   
+    SALESFORCE_CLIENT_ID = '...'    
     SALESFORCE_CLIENT_SECRET = '...'
 
     Optional scope to include:
