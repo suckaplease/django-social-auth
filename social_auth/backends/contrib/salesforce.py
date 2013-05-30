@@ -1,25 +1,24 @@
 """
-settings.py should include the following:
-
-    SALESFORCE_CLIENT_ID = '...'
+settings.py should include the following:   
+    SALESFORCE_CLIENT_ID = '...'    
     SALESFORCE_CLIENT_SECRET = '...'
 
-Optional scope to include:
-    api - Allows access to the current, logged-in user's account over the APIs, such as the REST API or Bulk API.
-    chatter_api - Allows access to only the Chatter API URLs.
-    full - Allows access to all data accessible by the current, logged-in user.
-    id - Allows access only to the Identity Service.
-    refresh_token - Allows a refresh token to be returned if you are eligible to receive one.
-    visualforce - Allows access to Visualforce pages.
-    web - Allows the ability to use the access_token on the Web.
+    Optional scope to include:    
+        api - Allows access to the current, logged-in user's account over the APIs, such as the REST API or Bulk API.
+        chatter_api - Allows access to only the Chatter API URLs.
+        full - Allows access to all data accessible by the current, logged-in user.
+        id - Allows access only to the Identity Service.
+        refresh_token - Allows a refresh token to be returned if you are eligible to receive one.
+        visualforce - Allows access to Visualforce pages.
+        web - Allows the ability to use the access_token on the Web.  
 
-    If you do not supply a scope parameter, it will default to: id api refresh_token.
+        If you do not supply a scope parameter, it will default to: id api refresh_token.
 
-    SALESFORCE_AUTH_EXTRA_ARGUMENTS = {'scope': 'id api refresh_token'}
-
+    SALESFORCE_AUTH_EXTRA_ARGUMENTS = {'scope': 'id api refresh_token'}    
     SALESFORCE_DISPLAY_PARAM
 
-More information on scope can be found at https://angel.co/api/oauth/faq
+    More information on scope can be found at:
+     http://wiki.developerforce.com/page/Digging_Deeper_into_OAuth_2.0_on_Force.com
 """
 from urllib import urlencode
 
