@@ -57,6 +57,7 @@ class SalesforceBackend(OAuthBackend):
         ('status','status'),
         ('photos','photos'),
         ('urls','urls'),
+        ('refresh_token', 'refresh_token', True),
     ]
 
     def get_user_id(self, details, response):
@@ -89,9 +90,9 @@ class SalesforceAuth(BaseOAuth2):
     def user_data(self, access_token, *args, **kwargs):
         """Loads user data from service"""
         response = kwargs.get('response') or {}
-	import urllib2
-	headers = {'Authorization': 'Bearer ' + access_token}
-	req = urllib2.Request(response.get('id'), headers=headers)
+        import urllib2
+        headers = {'Authorization': 'Bearer ' + access_token}
+        req = urllib2.Request(response.get('id'), headers=headers)
         try:
             return simplejson.load(urllib2.urlopen(req))
         except ValueError:
